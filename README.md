@@ -1,6 +1,6 @@
 <span id="title">
 
-# Benchmark organizer template
+# My own inverted pendulum benchmark
 
 </span>
 
@@ -71,7 +71,7 @@ TODO: Detailed step-by-step guide if needed
 
 <span id="description">
 
-Write here a short description of your benchmark.
+In this benchmark, the goal is to program an e-puck2 to balance an inverted pendulum as long as possible. A random force is applied to the tip of the pendulum and grows bigger and bigger as time goes on. An example controller is provided with a basic PID controller.
 
 </span>
 
@@ -81,10 +81,10 @@ Write here a short description of your benchmark.
 
 <span id="information">
 
-- Difficulty: Middle School, High School, Bachelor, Master or PhD
-- Robot: robot name
-- Language: programming language of controller template
-- Commitment: amount of time needed to program controller
+- Difficulty: Bachelor
+- Robot: e-puck2
+- Language: Python
+- Commitment: a couple of hours
 
 </span>
 
@@ -108,7 +108,7 @@ Under "Access" click on the "Collaborators" section.
 You will then need to confirm the access by re-entering your GitHub password.
 
 When this is done you should see a "Manage access" box where you will see the current collaborators of the repo.
-Click on the "Add people" and search for "ORGANIZER_NAME". When you found the organizer, add them to the repository.
+Click on the "Add people" and search for "TotallyRandomGus". When you found the organizer, add them to the repository.
 
 ### Submit your entry by using posting an issue using the provided template
 
