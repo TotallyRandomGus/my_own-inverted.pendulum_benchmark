@@ -6,67 +6,6 @@
 
 [![webots.cloud - Page](https://img.shields.io/badge/webots.cloud-Page-007ACC)](https://benchmark.webots.cloud/run?version=R2022b&url=https://github.com/TotallyRandomGus/my_own-inverted.pendulum_benchmark/blob/main/worlds/inverted_pendulum.wbt&type=benchmark)
 
-## Organizer setup
-
-Here is a quick summary of the instructions for somebody who wants to organise a robotics simulation benchmark. The links in the rest of the setup are relative to the repository where the README is, so to be able to use them you should first [create your own repository](../../generate) from this template and go to its main page to continue reading the instructions.
-
-Then you will need to follow those steps:
-
-### GitHub settings
-- Go to the [Settings tab](../../settings):
-  - Tick the "Template repository" box so that the competitors can easily make a copy of the simulation files
-  - Go to [Actions settings tab](../../settings/actions) and tick the "Allow all actions and reusable workflow" permission to enable the automation scripts and save the setting
-
-- You will need to setup a GitHub secret to be able to fetch your competitors' controllers:
-
-  - [Create a new Personal Access Token](../../../../settings/tokens/new). Give it a name to remember what it is for and set its "Expiration" to the end of the tournament. You can always set it to "No expiration" or recreate a token when it expires to allow the automated scripts to continue working. Tick the "repo" scope box, click "Generate token" and copy the generated code to your clipboard
-
-  - Go to the repo's [secrets settings](../../settings/secrets/actions/new) to create a new repository secret. Name it "REPO_TOKEN", paste in the Personal Access Token you just created and finally click the "Add secret" button.
-
-### Metadata update
-
-- Update the fields inside [webots.yml](../../edit/main/webots.yml):
-  - file: put the relative path to your world file
-  - maximum-duration: the maximum duration of an evaluation in seconds. Set it not large to avoid long evaluations of broken controllers but not too short to have enough time to finish the task
-  - metric: should be one of "percent", "time-speed", "time-duration" or "distance". It depends on how the perfomance is evaluated
-  - dockerCompose: it is a special path used by the integrated IDE and GitHub actions to locate the default controller. Change "edit_me" to the name of your main controller
-- Replace the files of the [preview folder](/preview) with an example animation of your benchmark (keep the same file names)
-
-### README update
-
-Update the [README file](../../edit/main/README.md):
-
-- Change the title and the description section to fit your new scenario
-
-- Update the different fields of the information section. They are used for the info box on webots.cloud:
-  - Difficulty: an idea of the benchmark's complexity (for example: Middle School, High School, Bachelor, Master, PhD...)
-  - Robot: the name of the robot used in the benchmark
-  - Language: the programming language of the example controller
-  - Commitment: an idea of the time required to complete the benchmark (a few minutes, a couple of hours, a couple of days...)
-
-- Replace "ORGANIZER_NAME" in the "How to paricipate" section with your GitHub username
-
-- You can submit your benchmark to [webots.cloud](https://benchmark.webots.cloud/benchmark) to share it with other people. Then you are on the website on the "Benchmark" tab, click on "Add a new benchmark" and enter the URL to your .wbt world file located in the [world folder](./worlds/)
-
-- When you have submitted your benchmark to webots.cloud, change the link of the shield badge at the top of this document to the correct webots.cloud page
-
-### Webots files
-
-Replace/add all the files needed for your Webots simulation at the root of the repository, notably the folders "worlds", "controllers" and the folder "plugins" needed for the robot window.
-
-Finally, when all the previous steps have been made, you can remove this "Organizer setup" section from the README file!
-
-<!-- <details>
-<summary style="font-size:1.25em">Detailed step-by-step guide</summary>
-
-TODO: Detailed step-by-step guide if needed
- could be done in the wiki of the repo?
-
-</details>
--->
-
----
-
 ## Description
 
 <span id="description">
