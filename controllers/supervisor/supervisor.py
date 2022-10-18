@@ -1,7 +1,13 @@
-"""Supervisor of the Robot Programming benchmark."""
+"""Controller program to manage the benchmark.
+
+It manages the perturbation and evaluates the peformance of the user
+controller.
+"""
 
 from controller import Supervisor
+import math
 import os
+import random
 import sys
 
 def benchmarkPerformance(message, robot):
@@ -15,45 +21,74 @@ def stop_recording(robot, message):
     emitter = robot.getDevice('emitter')
     emitter.send(message.encode('utf-8'))
 
+def time_convert(time):
+    minutes = time / 60
+    absolute_minutes =  math.floor(minutes)
+    minutes_string = str(absolute_minutes).zfill(2)
+    seconds = (minutes - absolute_minutes) * 60
+    absolute_seconds =  math.floor(seconds)
+    seconds_string = str(absolute_seconds).zfill(2)
+    cs = math.floor((seconds - absolute_seconds) * 100);
+    cs_string = str(cs).zfill(2)
+    return minutes_string + "." + seconds_string + "." + cs_string
+
 """ try:
-    includePath = "../../../include"
+    includePath = os.environ.get("WEBOTS_HOME") + "/projects/samples/robotbenchmark/include"
     includePath.replace('/', os.sep)
     sys.path.append(includePath)
-    from benchmark import benchmarkPerformance
+    from robotbenchmark import robotbenchmarkRecord
 except ImportError:
-    print("error")
-    sys.stderr.write("Warning: 'benchmark' module not found.\n")
+    sys.stderr.write("Warning: 'robotbenchmark' module not found.\n")
     sys.exit(0) """
+
+# Get random generator seed value from 'controllerArgs' field
+seed = 1
+if len(sys.argv) > 1 and sys.argv[1].startswith('seed='):
+    seed = int(sys.argv[1].split('=')[1])
 
 robot = Supervisor()
 
 timestep = int(robot.getBasicTimeStep())
 
-thymio = robot.getFromDef("BENCHMARK_ROBOT")
-translation = thymio.getField("translation")
+jointParameters = robot.getFromDef("PENDULUM_PARAMETERS")
+positionField = jointParameters.getField("position")
 
-tx = 0
-running = True
+emitter = robot.getDevice("emitter")
+time = 0
+force = 0
+forceStep = 800
+random.seed(seed)
+run = True
+
 while robot.step(timestep) != -1:
-    t = translation.getSFVec3f()
-    if running:
-        percent = 1 - abs(0.25 + t[0]) / 0.25
-        if percent < 0:
-            percent = 0
-        if t[0] < -0.01 and abs(t[0] - tx) < 0.0001:  # away from starting position and not moving any more
-            running = False
-            name = 'Robot Programming'
-            performance = str(percent)
-            performanceString = str(round(percent * 100, 2)) + '%'
+    if run:
+        time = robot.getTime()
+        robot.wwiSendText("time:%-24.3f" % time)
+        robot.wwiSendText("force:%.2f" % force)
+
+        # Detect status of inverted pendulum
+        position = positionField.getSFFloat()
+        if position < -1.58 or position > 1.58:
+            # stop
+            run = False
+            name = "Inverted Pendulum"
+            performance = str(time)
+            performanceString = time_convert(time)
             message = 'success:' + name + ':' + performance + ':' + performanceString
             robot.wwiSendText(message)
             benchmarkPerformance(message, robot)
         else:
-            message = "percent"
-        message += ":" + str(percent)
-        robot.wwiSendText(message)
-        tx = t[0]
-    else:  # wait for record message
+            if forceStep <= 0:
+                forceStep = 800 + random.randint(0, 400)
+                force = force + 0.02
+                toSend = "%.2lf %d" % (force, seed)
+                if sys.version_info.major > 2:
+                    toSend = bytes(toSend, "utf-8")
+                emitter.send(toSend)
+            else:
+                forceStep = forceStep - 1
+    else:
+        # wait for record message
         message = robot.wwiReceiveText()
         while message:
             if message.startswith("confirm:"):
