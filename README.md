@@ -4,7 +4,7 @@
 
 </span>
 
-[![webots.cloud - Page](https://img.shields.io/badge/webots.cloud-Page-007ACC)](https://benchmark.webots.cloud/run?version=R2022b&url=https://github.com/Jean-Eudes-le-retour/bare-benchmark-example/blob/main/worlds/robot_programming.wbt&type=benchmark)
+[![webots.cloud - Page](https://img.shields.io/badge/webots.cloud-Page-007ACC)](https://benchmark.webots.cloud/run?version=R2022b&url=https://github.com/TotallyRandomGus/my_own-inverted.pendulum_benchmark/blob/main/worlds/inverted_pendulum.wbt&type=benchmark)
 
 ## Organizer setup
 
