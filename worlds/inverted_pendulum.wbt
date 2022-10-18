@@ -96,7 +96,7 @@ DEF BENCHMARK_SUPERVISOR Robot {
 DEF BENCHMARK_ROBOT E-puck {
   translation 0.98 0 0
   rotation 0 0 1 1.5707963000000003
-  controller "edit_me"
+  controller "inverted_pendulum"
   window "<none>"
   turretSlot [
     Transform {
