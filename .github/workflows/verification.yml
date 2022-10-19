@@ -81,10 +81,8 @@ jobs:
 
       - name: Fetch default controller name
 
-        if: ${{ steps.benchmark_check.outcome == 'success' }}
-        uses: tw3lveparsecs/github-actions-setvars@v0.1
-        with:
-          envFilePath: ./.github/variables/default.env
+        run: bash .github/default_controller_name_regex.sh
+        continue-on-error: true
 
       - name: Does repo have a correctly named controller?
 

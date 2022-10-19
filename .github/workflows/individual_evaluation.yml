@@ -37,9 +37,8 @@ jobs:
           echo "INDIVIDUAL_REF=$solo_reference" >> $GITHUB_ENV
 
       - name: Fetch default controller name
-        uses: tw3lveparsecs/github-actions-setvars@v0.1
-        with:
-          envFilePath: ./.github/variables/default.env
+        run: bash .github/default_controller_name_regex.sh
+        continue-on-error: true
 
       - name: Record and update Benchmark animations
         id: webots_test

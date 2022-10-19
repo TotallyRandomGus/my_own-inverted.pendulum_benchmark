@@ -48,5 +48,3 @@ jobs:
             If you want to unsubscribe your repository from the list, add a new comment containing the word "unsubscribe".
 
             Please note that the commands might take a few minutes before posting feedback messages. Refreshing the page can help seeing newer messages.
-        env:
-          GH_TOKEN: ${{ github.token }}
