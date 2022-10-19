@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: GitHub API to create labels
         run: |
-          gh create registration --description "Indicates a benchmark registration" --color D93F0B
-          gh create pending --description "There was a problem during registration, the process is on hold" --color C5DEF5
-          gh create accepted --description "You have been subscribed to the benchmark" --color 0E8A16
+          gh label create registration --description "Indicates a benchmark registration" --color D93F0B
+          gh label create pending --description "There was a problem during registration, the process is on hold" --color C5DEF5
+          gh label create accepted --description "You have been subscribed to the benchmark" --color 0E8A16
           
