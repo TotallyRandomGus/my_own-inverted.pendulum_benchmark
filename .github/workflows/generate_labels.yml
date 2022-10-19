@@ -9,7 +9,22 @@ jobs:
     steps:
       - name: GitHub API to create labels
         run: |
-          gh label create registration --description "Indicates a benchmark registration" --color D93F0B
-          gh label create pending --description "There was a problem during registration, the process is on hold" --color C5DEF5
-          gh label create accepted --description "You have been subscribed to the benchmark" --color 0E8A16
+          # create registration label
+          gh api \
+            --method POST -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/labels \
+            -f name='registration' -f color='D93F0B' \
+            -f description='Indicates a benchmark registration' \
+          # create pending label
+          gh api \
+            --method POST -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/labels \
+            -f name='pending' -f color='C5DEF5' \
+            -f description='There was a problem during registration' \
+          # create accepted label
+          gh api \
+            --method POST -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/labels \
+            -f name='accepted' -f color='0E8A16' \
+            -f description='You have been subscribed to the benchmark' \
           
